@@ -10,5 +10,3 @@ font-family:verdana;}
     border-radius:25px;
     margin:auto;
 }
-
-
