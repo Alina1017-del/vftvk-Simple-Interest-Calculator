@@ -1,31 +1,30 @@
-function compute(){
-//get the value and calculate
-   var principal =parseFloat( document.getElementById("principal").value);
-   var rate=parseFloat(document.getElementById("rate").value);
-   var years=parseFloat(document.getElementById("years").value);
-   var interest = principal*years*rate/100;
-   var yearInFuture= new Date().getFullYear()+years;
-   //create the interest rate
-   document.getElementById("result").innerHTML = "Interest:If you deposit<mark>"+principal+"</mark>,<br/>"+
-   "at an interest rate of <mark>"+ rate + "</mark>,<br/>"+
-   "you will receive an amount of <mark>" + interest +"</mark>,<br/>"+
-   "in the year <mark>" + yearInFuture + "</mark>";
-}
-//update the value
-function getSliderValue()
-{
-    document.getElementById("rateSpan").innerHTML=document.getElementById("rate").value;
-
-}
-//check for positive nos
-function validateAmount()
-{
+function compute() {
     var principal = document.getElementById("principal").value;
-    var biggerThanZero=parseInt(principal)>0;
-    if(!biggerThanZero)
-    {
-        alert("Enter positive number");
+    // check if the amount is positive, otherwise throw an error and stop.
+    if (principal < 1 || principal == "") {
+        alert("Enter a positive number");
         document.getElementById("principal").focus();
+        return false;
     }
+    var rate = document.getElementById("rate").value;
+    var years = document.getElementById("years").value;
+    var interest = principal * years * rate / 100;
+    var date = new Date();
+    var thisYear = date.getFullYear();
+    // need to convert years (string) to numbers
+    var futureYear = thisYear + Number(years);
+    var result = document.getElementById("result");
+    output = "If you deposit <mark>" + principal + "</mark>,<br>"
+            + "at an interest rate of <mark>" + rate + "</mark>%.<br>"
+            + "You will receive an amount of <mark>" + interest + "</mark>,<br>"
+            + "in the year <mark>" + futureYear + "</mark>";
+    result.innerHTML = output;
 }
-        
+
+// current interest rate indicator 
+function update() {
+    var slider = document.getElementById("rate");
+    var output = document.getElementById("demo");
+    var percents = slider.value + "%";
+    output.innerHTML = percents;
+}
